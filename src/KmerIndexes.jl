@@ -18,7 +18,7 @@ function KmerIndex{K}(::Type{DNAKmer{K}}, seq::DNASequence, step::Integer=1)
     end
     for (pos, kmer) in each(DNAKmer{K}, seq, step)
         idx = UInt64(kmer)
-        push!(data[idx], pos)
+        push!(data[idx+1], pos)
     end
     return KmerIndex{K,Int}(data)
 end
@@ -29,7 +29,7 @@ end
 
 function locate{K}(kmer::DNAKmer{K}, index::KmerIndex{K})
     idx = UInt64(kmer)
-    return index.data[idx]
+    return index.data[idx+1]
 end
 
 end # module
